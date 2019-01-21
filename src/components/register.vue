@@ -65,7 +65,9 @@ export default {
         return [
           { text: this.$t('select_gender_label'), value: null },
           { text: this.$t('select_gender_male'), value: 'm' },
-          { text: this.$t('select_gender_female'), value: 'f' }
+          { text: this.$t('select_gender_female'), value: 'f' },
+          { text: this.$t('select_gender_not_informed'), value: 'n' },
+
         ]
       }
   },

@@ -11,7 +11,7 @@
       </p>
     </b-card>
     
-    <b-card class="text-left">
+    <b-card class="text-left login-card">
       <b-form>
         <b-form-group id="email-login"
                       :label="$t('field_email_login') + ':'"
@@ -97,5 +97,13 @@ export default {
 
 .card-text, .card-title {
   text-align: center;
+}
+
+@media (min-width: 576px) {
+  .login-card {
+    max-width: 100%;
+    align-items: center;    
+    margin: auto;
+  }
 }
 </style>

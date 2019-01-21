@@ -15,6 +15,7 @@
   "select_gender_label": "Select One",
   "select_gender_male": "Male",
   "select_gender_female": "Female",
+  "select_gender_not_informed": "Do not inform",
   "born_date_pattern": "yyyy/mm/dd",
   "born_date_mask": "####/##/##",
   "button_register_submit": "Submit",

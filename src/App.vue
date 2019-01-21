@@ -92,4 +92,10 @@ code {
 .container-main {
   padding: 5px;
 }
+
+@media (min-width: 576px) {
+  .container {
+      max-width: 100%;
+  }
+}
 </style>
