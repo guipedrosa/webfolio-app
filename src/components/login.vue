@@ -11,6 +11,13 @@
       </p>
     </b-card>
     
+    <b-alert variant="danger"
+             dismissible
+             :show="showDismissibleAlert"
+             @dismissed="showDismissibleAlert=false">
+      {{ message_login }}
+    </b-alert>
+
     <b-card class="text-left login-card">
       <b-form @submit="doLogin">
         <b-form-group id="email-login"
@@ -61,6 +68,8 @@ import axios from 'axios';
 export default {
   data () {
     return {
+      message_login: "",
+      showDismissibleAlert: false,
       form: {
         email: '',
         password: ''
@@ -91,8 +100,13 @@ export default {
           .then(response => {
             localStorage.setItem('tokensession', response.data.token)
             localStorage.setItem('user', response.data.user)
-            console.log(response)
-
+            this.$router.push({ path: '/dashboard' })
+          })
+          .catch(err => {
+            if (err.response.status == 403) {
+              this.message_login = this.$t('wrong_user_or_password')
+              this.showDismissibleAlert = true
+            }
           })
   
       }

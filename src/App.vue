@@ -5,9 +5,11 @@
       <b-navbar-brand to="/">WebFolio</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/register">{{ $t('menu_register') }}</b-nav-item>
+          <b-nav-item to="/login" v-if="!logged()">{{ $t('menu_login') }}</b-nav-item>
+          <b-nav-item to="/register" v-if="!logged()">{{ $t('menu_register') }}</b-nav-item>
           <b-nav-item to="/quiz">{{ $t('menu_quiz') }}</b-nav-item>
-          <b-nav-item to="/about">{{ $t('menu_about') }}</b-nav-item>          
+          <b-nav-item to="/about">{{ $t('menu_about') }}</b-nav-item>
+          <b-nav-item @click="logout" v-if="logged()">{{ $t('menu_logout') }}</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -41,6 +43,14 @@ export default {
     changeLang(ln, e) {
       e.preventDefault()
       this.$i18n.locale = ln
+    },
+    logged() {
+      return (localStorage.getItem('tokensession') !== null)
+    },
+    logout() {
+      localStorage.removeItem('tokensession')
+      localStorage.removeItem('user')
+      this.$router.push({ path: '/login' })
     }
   }
 

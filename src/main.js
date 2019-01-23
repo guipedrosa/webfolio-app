@@ -24,8 +24,7 @@ const routes = [
   { path: '/register', component: Register },
   { path: '/quiz', component: Quiz },
   { path: '/login', component: Login },
-  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
-
+  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true }, name: "dashboard" },
 ]
 
 const router = new VueRouter({
@@ -41,27 +40,28 @@ router.beforeEach((to, from, next) => {
               params: { nextUrl: to.fullPath }
           })
       } else {
-          let user = localStorage.getItem('user')
-          if(to.matched.some(record => record.meta.is_admin)) {
-              if(user.is_admin == 1){
-                  next()
-              }
-              else{
-                  next({ name: 'userboard'})
-              }
-          }else {
-              next()
-          }
+        let user = localStorage.getItem('user')
+        if(to.matched.some(record => record.meta.is_admin)) {
+            if(user.is_admin == 1){
+                next()
+            }
+            else{
+                next()
+            }
+        } else {
+            next()
+        }
+    }
+  }  else {
+
+    // Redirect to dashboard if logged in
+    if (to.matched.some(record => record.path == '/login')) {
+      if (localStorage.getItem('tokensession') !== null) {
+        router.push({ path: '/dashboard'})
       }
-  } else if(to.matched.some(record => record.meta.guest)) {
-      if(localStorage.getItem('tokensession') == null){
-          next()
-      }
-      else{
-          next({ name: 'userboard'})
-      }
-  }else {
-      next() 
+    }
+
+    next()
   }
 })
 
