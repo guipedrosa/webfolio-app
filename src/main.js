@@ -17,17 +17,52 @@ Vue.use(FBSignInButton)
 import Register from './components/register.vue'
 import Quiz from './components/quiz.vue'
 import Login from './components/login.vue'
+import Dashboard from './components/dashboard.vue'
 
 const routes = [
   { path: '/', component: Login },
   { path: '/register', component: Register },
   { path: '/quiz', component: Quiz },
   { path: '/login', component: Login },
-  
+  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
+
 ]
 
 const router = new VueRouter({
   routes
+})
+
+// Check if user is password veryfied
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+      if (localStorage.getItem('tokensession') == null) {
+          next({
+              path: '/login',
+              params: { nextUrl: to.fullPath }
+          })
+      } else {
+          let user = localStorage.getItem('user')
+          if(to.matched.some(record => record.meta.is_admin)) {
+              if(user.is_admin == 1){
+                  next()
+              }
+              else{
+                  next({ name: 'userboard'})
+              }
+          }else {
+              next()
+          }
+      }
+  } else if(to.matched.some(record => record.meta.guest)) {
+      if(localStorage.getItem('tokensession') == null){
+          next()
+      }
+      else{
+          next({ name: 'userboard'})
+      }
+  }else {
+      next() 
+  }
 })
 
 new Vue({
