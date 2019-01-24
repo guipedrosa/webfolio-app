@@ -1,16 +1,5 @@
 <template>
   <div>
-    <b-card :title="$t('welcome_short_message')"
-          img-src="./src/assets/img/open-image.png"
-          img-alt="Image"
-          img-top
-          tag="article"
-          class="mb-2 card-title">
-      <p class="card-text">
-        {{ $t('welcome_long_message') }}
-      </p>
-    </b-card>
-    
     <b-alert variant="danger"
              dismissible
              :show="showDismissibleAlert"
@@ -83,11 +72,17 @@ export default {
   methods: {
       onSignInSuccess (response) {
         FB.api('/me', dude => {
-          console.log(`Good to see you, ${dude.name}.`)
+          // 
+          localStorage.setItem('tokensession', dude.id)console.log(dude)
+          // console.log(`Good to see you, ${dude.name}.`)
+          localStorage.setItem('user', dude)
+          this.$router.push({ path: '/dashboard' })          
         })
       },
       onSignInError (error) {
-        console.log('OH NOES', error)
+        // console.log('OH NOES', error)
+        this.message_login = this.$t('wrong_user_or_password')
+        this.showDismissibleAlert = true
       },
       doLogin(evt) {
         evt.preventDefault()
@@ -123,6 +118,7 @@ export default {
   background-color: #4267b2;
   color: #fff;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .facebook-button {

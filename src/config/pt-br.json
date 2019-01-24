@@ -15,6 +15,8 @@
   "field_name_placeholder": "Digite seu nome",
   "field_born_date": "Data de nascimento",
   "field_gender": "Sexo",
+  "field_password": "Senha",
+  "field_confirm_password": "Confirme a senha",
   "select_gender_label": "Escolha um",
   "select_gender_male": "Masculino",
   "select_gender_female": "Feminino",

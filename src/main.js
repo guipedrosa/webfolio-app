@@ -14,13 +14,14 @@ Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 Vue.use(FBSignInButton) 
 
+import Home from './components/home.vue'
 import Register from './components/register.vue'
 import Quiz from './components/quiz.vue'
 import Login from './components/login.vue'
 import Dashboard from './components/dashboard.vue'
 
 const routes = [
-  { path: '/', component: Login },
+  { path: '/', component: Home },
   { path: '/register', component: Register },
   { path: '/quiz', component: Quiz },
   { path: '/login', component: Login },

@@ -1,6 +1,7 @@
 <template>
+  <b-card>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group id="exampleInputGroup1"
+      <b-form-group id="group1"
                     :label="$t('field_email_address') + ':'"
                     label-for="exampleInput1"
                     :description="$t('email_disclaimer')">
@@ -11,7 +12,7 @@
                       :placeholder="$t('field_email_address_placeholder')">
         </b-form-input>
       </b-form-group>
-      <b-form-group id="exampleInputGroup2"
+      <b-form-group id="group2"
                     :label="$t('field_name') + ':'"
                     label-for="exampleInput2">
         <b-form-input id="exampleInput2"
@@ -21,18 +22,8 @@
                       :placeholder="$t('field_name_placeholder')">
         </b-form-input>
       </b-form-group>
-      <b-form-group id="born-date"
-                    :label="$t('field_born_date') + ':' "
-                    label-for="born-date-input">
-        <b-form-input id="born-date-input"
-                      type="text"
-                      v-mask="$t('born_date_mask')"
-                      v-model="form.born_date"
-                      required
-                      :placeholder="$t('born_date_pattern')">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group id="gender-choice"
+
+      <b-form-group id="group3"
                     :label="$t('field_gender') +':'"
                     label-for="gender-select">
         <b-form-select id="gender-select"
@@ -40,12 +31,33 @@
                       required
                       v-model="form.gender">
         </b-form-select>
+      </b-form-group>
         
+         <b-form-group id="group4"
+                    :label="$t('field_password') + ':' "
+                    label-for="password">
+          <b-form-input id="password"
+                        type="password"
+                        v-model="form.password"
+                        required>
+          </b-form-input>
+        </b-form-group>
+
+       <b-form-group id="group5"
+                    :label="$t('field_confirm_password') + ':' "
+                    label-for="confirm-password">
+        <b-form-input id="confirm-password"
+                      type="password"
+                      v-model="form.confirm_password"
+                      required>
+        </b-form-input>
+      </b-form-group>
+
       </b-form-group>
       <b-button type="submit" variant="primary">{{ $t('button_register_submit') }}</b-button>
       <b-button type="reset" variant="danger">{{ $t('button_register_reset') }}</b-button>
     </b-form>
-    
+  </b-card>
 </template>
 
 <script>
