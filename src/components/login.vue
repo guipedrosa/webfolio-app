@@ -73,7 +73,7 @@ export default {
       onSignInSuccess (response) {
         FB.api('/me', dude => {
           // 
-          localStorage.setItem('tokensession', dude.id)console.log(dude)
+          localStorage.setItem('tokensession', dude.id)
           // console.log(`Good to see you, ${dude.name}.`)
           localStorage.setItem('user', dude)
           this.$router.push({ path: '/dashboard' })          

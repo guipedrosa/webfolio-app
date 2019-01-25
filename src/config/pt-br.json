@@ -17,6 +17,10 @@
   "field_gender": "Sexo",
   "field_password": "Senha",
   "field_confirm_password": "Confirme a senha",
+  "user_created_success": "Usuário criado com sucesso!",
+  "user_created_fail": "Não foi possível criar seu usuário! Entre em contato com o administrador do sistema.",
+  "user_already_exists": "Já existe um usuário com este Email",
+  "password_not_equal": "As senhas digitadas devem ser iguais",
   "select_gender_label": "Escolha um",
   "select_gender_male": "Masculino",
   "select_gender_female": "Feminino",
@@ -32,5 +36,8 @@
   "button_login_submit": "Login",
   "button_login_reset": "Cancelar",
   "login_with_facebook": "Facebook Login",
-  "or_login_with": "Ou"
+  "or_login_with": "Ou",
+  "about_short_message": "Sobre",
+  "about_long_message": "O Webfolio é um aplicativo para gerir a residência médica, fomentando o aprendizado e o compartilhamento de experiências."
+  
 }

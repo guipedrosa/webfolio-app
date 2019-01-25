@@ -1,6 +1,11 @@
 <template>
   <b-card>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    
+    <b-alert :variant="registerSuccess" :show="created_user_flag" dismissible>{{ created_user_msg }}</b-alert>
+
+    <Login v-if="show_login"></Login>
+
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show_register">
       <b-form-group id="group1"
                     :label="$t('field_email_address') + ':'"
                     label-for="exampleInput1"
@@ -33,6 +38,19 @@
         </b-form-select>
       </b-form-group>
         
+        <b-alert :show="dismissCountDown"
+                dismissible
+                variant="danger"
+                @dismissed="dismissCountDown=0"
+                @dismiss-count-down="countDownChanged">
+          <p>{{ $t('password_not_equal') }}</p>
+          <b-progress variant="danger"
+                      :max="dismissSecs"
+                      :value="dismissCountDown"
+                      height="4px">
+          </b-progress>
+        </b-alert>
+
          <b-form-group id="group4"
                     :label="$t('field_password') + ':' "
                     label-for="password">
@@ -49,18 +67,22 @@
         <b-form-input id="confirm-password"
                       type="password"
                       v-model="form.confirm_password"
-                      required>
+                      required
+                      v-on:input="verifySamePassword">
         </b-form-input>
       </b-form-group>
 
-      </b-form-group>
       <b-button type="submit" variant="primary">{{ $t('button_register_submit') }}</b-button>
       <b-button type="reset" variant="danger">{{ $t('button_register_reset') }}</b-button>
+
     </b-form>
   </b-card>
 </template>
 
 <script>
+import axios from 'axios';
+import Login from './login.vue'
+
 export default {
   data () {
     return {
@@ -69,8 +91,17 @@ export default {
         name: '',
         gender: null
       },
-      show: true
+      show_register: true,
+      show_login: false,
+      dismissSecs: 10,
+      dismissCountDown: 0,
+      created_user_flag: false,
+      registerSuccess: 'danger',
+      created_user_msg: ''
     }
+  },
+  components: {
+    Login
   },
   computed: {
       genders() {
@@ -86,18 +117,77 @@ export default {
   methods: {
     onSubmit (evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      
+      if (this.verifySamePassword()) {
+
+      delete this.form.confirm_password
+      
+      axios
+        .post('http://localhost:3000/api/users', 
+          this.form, 
+          { "Content-Type": "application/x-www-form-urlencoded" }
+        )
+        .then(response => {
+
+          if (response.data.message === 'success') { // created success
+            this.created_user_flag = true
+            this.created_user_msg = this.$t('user_created_success')
+            this.registerSuccess = 'success'            
+            this.resetForm()
+
+            // Show login after created user
+            this.show_register = false;
+            this.show_login = true;
+
+          } else if (response.data.message === 'user-exists') { // user already exists (email key)
+            this.registerSuccess = 'danger'
+            this.created_user_msg = this.$t('user_already_exists')
+            this.created_user_flag = true
+
+            this.form.password = ''
+            this.form.confirm_password = ''
+          }                     
+
+        })
+        .catch(err => { // another types of error while trying to register user         
+          this.created_user_flag = true
+          this.registerSuccess = 'danger'
+          this.created_user_msg = this.$t('user_created_fail')
+          console.log(err)          
+          
+          this.form.password = ''
+          this.form.confirm_password = ''
+        })
+      
+      }
+
+      // alert(JSON.stringify(this.form));
     },
     onReset (evt) {
-      evt.preventDefault();
-      /* Reset our form values */
-      this.form.email = '';
-      this.form.name = '';
-      this.form.food = null;
-      this.form.checked = [];
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false;
-      this.$nextTick(() => { this.show = true });
+      evt.preventDefault()
+      this.resetForm()
+    },
+    verifySamePassword() {
+       if (this.form.password !== this.form.confirm_password) {
+         this.dismissCountDown = 6
+         return false
+       } else {
+         this.dismissCountDown = 0
+         return true
+       }
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
+    },
+    resetForm() {      
+      this.form.email = ''
+      this.form.name = ''         
+      this.form.password = ''
+      this.form.confirm_password = ''
+      this.form.gender = ''
     }
   }
 }

@@ -19,13 +19,16 @@ import Register from './components/register.vue'
 import Quiz from './components/quiz.vue'
 import Login from './components/login.vue'
 import Dashboard from './components/dashboard.vue'
+import About from './components/about.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/register', component: Register },
-  { path: '/quiz', component: Quiz },
+  { path: '/quiz', component: Quiz, meta: { requiresAuth: true }, name: "quiz" },
   { path: '/login', component: Login },
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true }, name: "dashboard" },
+  { path: '/about', component: About },
+
 ]
 
 const router = new VueRouter({
