@@ -53,6 +53,7 @@
 
 <script>
 import axios from 'axios';
+import { settings } from '../config/settings.js'
 
 export default {
   data () {
@@ -70,14 +71,34 @@ export default {
     }
   },
   methods: {
-      onSignInSuccess (response) {
-        FB.api('/me', dude => {
-          // 
-          localStorage.setItem('tokensession', dude.id)
-          // console.log(`Good to see you, ${dude.name}.`)
-          localStorage.setItem('user', dude)
-          this.$router.push({ path: '/dashboard' })          
+      onSignInSuccess (response) { 
+
+        FB.api('/me?fields=id,name,email&access_token=' + response.authResponse.accessToken, dude => {
+          
+          console.log(dude)
+          // axios to check user exists
+          axios
+            .post(settings.restApi + '/loginfb', 
+              { name: dude.name, email: dude.email, facebook_id: dude.id }, 
+              { "Content-Type": "application/x-www-form-urlencoded" }
+            )
+            .then(response => {
+              if (response.data.token === undefined) {
+                throw 'invalid token'
+              }
+              localStorage.setItem('tokensession', response.data.token)
+              localStorage.setItem('user', response.data.user)
+              this.$router.push({ path: '/dashboard' })
+            })
+            .catch(err => {
+              //if (err.response.status == 403) {
+                this.message_login = this.$t('problem_login_fb')
+                this.showDismissibleAlert = true
+              //}
+            })
+
         })
+        
       },
       onSignInError (error) {
         // console.log('OH NOES', error)
@@ -88,7 +109,7 @@ export default {
         evt.preventDefault()
         
         axios
-          .post('http://localhost:3000/api/login', 
+          .post(settings.restApi + '/login', 
             this.form, 
             { "Content-Type": "application/x-www-form-urlencoded" }
           )
