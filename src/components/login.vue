@@ -1,12 +1,13 @@
 <template>
   <div>
+    
     <b-alert variant="danger"
              dismissible
              :show="showDismissibleAlert"
              @dismissed="showDismissibleAlert=false">
       {{ message_login }}
     </b-alert>
-
+ 
     <b-card class="text-left login-card">
       <b-form @submit="doLogin">
         <b-form-group id="email-login"
@@ -41,7 +42,7 @@
         
         <hr>
 
-       <p>
+       <p>         
         {{ $t('login_or_register_message') }} <b-button to="/register">{{ $t('menu_register') }}</b-button>
       </p>
       </b-form>      
@@ -78,7 +79,7 @@ export default {
           console.log(dude)
           // axios to check user exists
           axios
-            .post(settings.restApi + '/loginfb', 
+            .post(settings.restApi() + '/loginfb', 
               { name: dude.name, email: dude.email, facebook_id: dude.id }, 
               { "Content-Type": "application/x-www-form-urlencoded" }
             )
@@ -109,7 +110,7 @@ export default {
         evt.preventDefault()
         
         axios
-          .post(settings.restApi + '/login', 
+          .post(settings.restApi() + '/login', 
             this.form, 
             { "Content-Type": "application/x-www-form-urlencoded" }
           )
