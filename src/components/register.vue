@@ -82,6 +82,7 @@
 <script>
 import axios from 'axios';
 import Login from './login.vue'
+import { settings } from '../config/settings.js'
 
 export default {
   data () {
@@ -123,7 +124,7 @@ export default {
       delete this.form.confirm_password
       
       axios
-        .post('http://localhost:3000/api/users', 
+        .post(settings.restApi() + '/users', 
           this.form, 
           { "Content-Type": "application/x-www-form-urlencoded" }
         )
