@@ -39,6 +39,7 @@
   "or_login_with": "Ou",
   "about_short_message": "Sobre",
   "about_long_message": "O Webfolio é um aplicativo para gerir a residência médica, fomentando o aprendizado e o compartilhamento de experiências.",
-  "problem_login_fb": "Não foi possível fazer o Login com o Facebook. Entre em contato como administrador do sistem."
+  "problem_login_fb": "Não foi possível fazer o Login com o Facebook. Entre em contato como administrador do sistem.",
+  "problem_to_login": "Problemas para efetuar o login, volte mais tarde!"
   
 }
