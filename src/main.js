@@ -16,18 +16,28 @@ Vue.use(FBSignInButton)
 
 import Home from './components/home.vue'
 import Register from './components/register.vue'
+import QuizDashboard from './components/quiz-dashboard.vue'
 import Quiz from './components/quiz.vue'
 import Login from './components/login.vue'
 import Dashboard from './components/dashboard.vue'
 import About from './components/about.vue'
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/register', component: Register },
-  { path: '/quiz', component: Quiz, meta: { requiresAuth: true }, name: "quiz" },
+  { path: '/', component: Home, name: 'Home', meta:{ breadcrumb: [ { name: 'Home' } ] } },
+  { path: '/register', component: Register, name: 'Register', meta:{ breadcrumb: [ { name: 'Register' } ] } },
+  
+  { path: '/quiz-dashboard', component: QuizDashboard, meta: { requiresAuth: true }, name: "quiz-dashboard", meta:{ breadcrumb: [ { name: 'Quiz Dashboard' } ] } },
+  { path: '/quiz', component: Quiz, meta: { requiresAuth: true }, name: "quiz", 
+    meta:{ 
+      breadcrumb: [ 
+          { name: 'Quiz Dashboard', link: 'quiz-dashboard' }, 
+          { name: 'Quiz' } 
+      ] 
+    } 
+  },
   { path: '/login', component: Login },
-  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true }, name: "dashboard" },
-  { path: '/about', component: About },
+  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true }, name: "dashboard", meta:{ breadcrumb: [ { name: 'Dashboard' } ] } },
+  { path: '/about', component: About, name: "About", meta:{ breadcrumb: [ { name: 'About' } ] } },
 
 ]
 

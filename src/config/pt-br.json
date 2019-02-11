@@ -40,6 +40,12 @@
   "about_short_message": "Sobre",
   "about_long_message": "O Webfolio é um aplicativo para gerir a residência médica, fomentando o aprendizado e o compartilhamento de experiências.",
   "problem_login_fb": "Não foi possível fazer o Login com o Facebook. Entre em contato como administrador do sistem.",
-  "problem_to_login": "Problemas para efetuar o login, volte mais tarde!"
-  
+  "problem_to_login": "Problemas para efetuar o login, volte mais tarde!",
+  "quiz_open_date": "Data de abertura",
+  "quiz_close_date": "Data de fechamento",
+  "quiz_study_sugestion": "Sugestão de estudo",
+  "quiz_time_to_answer": "Tempo para responder",
+  "quiz_clinic_case": "Caso clínico",
+  "table_quiz_name": "Nome",
+  "table_quiz_close_date": "Fechamento"
 }

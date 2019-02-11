@@ -1,15 +1,14 @@
 <template>
     <div>
-        <h2>Quiz</h2>
-
+        <h3>Quiz - {{ quiz.name }}</h3>
+        <b-list-group>
+            <b-list-group-item>{{ $t('quiz_time_to_answer') }}: {{ quiz.time_to_answer }}m</b-list-group-item>            
+        </b-list-group>        
+        <p style="padding-top:20px;">{{ quiz.case }}</p>
         <b-card no-body>
-            <b-tabs pills card vertical end>
-                <b-tab title="#1" active>
-                    <b-form-group label="Pergunta sobre o caso 1, escolha uma resposta!">
-                        <b-form-radio-group buttons stacked button-variant="primary" v-model="selected" name="butons1" :options="options">
-                        </b-form-radio-group>
-                    </b-form-group>                 
-                    <b-button type="submit" variant="success">Responder</b-button>
+            <b-tabs pills card vertical end>                
+                <b-tab :title="'#' + (parseInt(index) + 1)" :active="index === 0" v-for="(sentence, index) in quiz.sentences" :key="sentence._id">
+                    {{ sentence.question }}
                 </b-tab>
             </b-tabs>
         </b-card>
@@ -20,17 +19,26 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { settings } from '../config/settings.js'
+
 export default {
   data () {
     return {
-      selected: null, // Must be an array reference!
-      options: [
-        {text: 'Orange', value: 'orange'},
-        {text: 'Apple', value: 'apple'},
-        {text: 'Pineapple', value: 'pineapple'},
-        {text: 'Grape', value: 'grape'}
-      ]
+        quiz: {}
     }
+  },
+  mounted() {
+
+        axios
+            .get(settings.restApi() + '/quiz/5c58943266147c1198fa9232')
+                .then(response => {
+                    this.quiz = response.data.data
+                    console.log(response)
+                })
+                .catch(err => { // another types of error while trying to register user         
+                   
+                })
   }
 }
 </script>

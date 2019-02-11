@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 import Login from './login.vue'
 import { settings } from '../config/settings.js'
 
@@ -121,44 +121,44 @@ export default {
       
       if (this.verifySamePassword()) {
 
-      delete this.form.confirm_password
-      
-      axios
-        .post(settings.restApi() + '/users', 
-          this.form, 
-          { "Content-Type": "application/x-www-form-urlencoded" }
-        )
-        .then(response => {
+        delete this.form.confirm_password
+        
+        axios
+          .post(settings.restApi() + '/users', 
+            this.form, 
+            { "Content-Type": "application/x-www-form-urlencoded" }
+          )
+          .then(response => {
 
-          if (response.data.message === 'success') { // created success
+            if (response.data.message === 'success') { // created success
+              this.created_user_flag = true
+              this.created_user_msg = this.$t('user_created_success')
+              this.registerSuccess = 'success'            
+              this.resetForm()
+
+              // Show login after created user
+              this.show_register = false;
+              this.show_login = true;
+
+            } else if (response.data.message === 'user-exists') { // user already exists (email key)
+              this.registerSuccess = 'danger'
+              this.created_user_msg = this.$t('user_already_exists')
+              this.created_user_flag = true
+
+              this.form.password = ''
+              this.form.confirm_password = ''
+            }                     
+
+          })
+          .catch(err => { // another types of error while trying to register user         
             this.created_user_flag = true
-            this.created_user_msg = this.$t('user_created_success')
-            this.registerSuccess = 'success'            
-            this.resetForm()
-
-            // Show login after created user
-            this.show_register = false;
-            this.show_login = true;
-
-          } else if (response.data.message === 'user-exists') { // user already exists (email key)
             this.registerSuccess = 'danger'
-            this.created_user_msg = this.$t('user_already_exists')
-            this.created_user_flag = true
-
+            this.created_user_msg = this.$t('user_created_fail')
+            console.log(err)          
+            
             this.form.password = ''
             this.form.confirm_password = ''
-          }                     
-
-        })
-        .catch(err => { // another types of error while trying to register user         
-          this.created_user_flag = true
-          this.registerSuccess = 'danger'
-          this.created_user_msg = this.$t('user_created_fail')
-          console.log(err)          
-          
-          this.form.password = ''
-          this.form.confirm_password = ''
-        })
+          })
       
       }
 

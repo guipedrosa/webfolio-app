@@ -7,7 +7,7 @@
         <b-navbar-nav>
           <b-nav-item to="/login" v-if="!logged()">{{ $t('menu_login') }}</b-nav-item>
           <b-nav-item to="/register" v-if="!logged()">{{ $t('menu_register') }}</b-nav-item>
-          <b-nav-item to="/quiz">{{ $t('menu_quiz') }}</b-nav-item>
+          <b-nav-item to="/quiz-dashboard">{{ $t('menu_quiz') }}</b-nav-item>
           <b-nav-item to="/about">{{ $t('menu_about') }}</b-nav-item>
           <b-nav-item @click="logout" v-if="logged()">{{ $t('menu_logout') }}</b-nav-item>
         </b-navbar-nav>
@@ -23,6 +23,7 @@
     </b-navbar>
 
     <div class="container container-main">
+      <breadcrumbs v-if="this.$route.path !== '/'"></breadcrumbs>
       <router-view></router-view>
     </div>
   
@@ -37,8 +38,12 @@
 </template>
 
 <script>
+import Breadcrumbs from './components/breadcrumbs.vue'
+
 export default {
- 
+  components: {
+    Breadcrumbs
+  },
   methods: {
     changeLang(ln, e) {
       e.preventDefault()
@@ -100,7 +105,7 @@ code {
 }
 
 .container-main {
-  padding: 5px;
+  padding: 15px;
 }
 
 @media (min-width: 576px) {

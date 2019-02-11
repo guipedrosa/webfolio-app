@@ -40,5 +40,7 @@
   "about_short_message": "About",
   "about_long_message": "Webfolio is an application to learn, administrate and share knowledge in all medical residence aspects.",
   "problem_login_fb": "Cannot Login with Facebook, please contact the system administrator",
-  "problem_to_login": "Problems to Login, come back later!"
+  "problem_to_login": "Problems to Login, come back later!",
+  "table_quiz_name": "Name",
+  "table_quiz_close_date": "Close Date"
 }
