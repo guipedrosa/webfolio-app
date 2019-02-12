@@ -12,12 +12,16 @@ import { settings } from '../config/settings.js'
 
 export default {
     data () {
-        return {
-            fields: [
-                        { key: 'name', label: this.$t('table_quiz_name') }, 
-                        { key: 'close', label: this.$t('table_quiz_close_date') }
-                    ],
+        return {           
             items: []
+        }
+    },
+    computed: {
+        fields() {
+            return  [
+                { key: 'name', label: this.$t('table_quiz_name') }, 
+                { key: 'close', label: this.$t('table_quiz_close_date') }
+            ]
         }
     },    
     mounted() {
