@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted() {
-
+      console.log('kalsjdlkajsdlkjaksjdlas')
         axios
             .get(settings.restApi() + '/quiz/5c58943266147c1198fa9232')
                 .then(response => {

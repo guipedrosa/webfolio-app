@@ -27,10 +27,10 @@ const routes = [
   { path: '/register', component: Register, name: 'Register', meta:{ breadcrumb: [ { name: 'Register' } ] } },
   
   { path: '/quiz-dashboard', component: QuizDashboard, meta: { requiresAuth: true }, name: "quiz-dashboard", meta:{ breadcrumb: [ { name: 'Quiz Dashboard' } ] } },
-  { path: '/quiz', component: Quiz, meta: { requiresAuth: true }, name: "quiz", 
+  { path: '/quiz/:id', component: Quiz, meta: { requiresAuth: true }, name: "quiz", 
     meta:{ 
       breadcrumb: [ 
-          { name: 'Quiz Dashboard', link: 'quiz-dashboard' }, 
+          { name: 'Quiz Dashboard', link: '/quiz-dashboard' }, 
           { name: 'Quiz' } 
       ] 
     } 
