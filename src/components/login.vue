@@ -119,9 +119,13 @@ export default {
             this.$router.push({ path: '/dashboard' })
           })
           .catch(err => {
+            console.log(err)
             if (err.response && err.response.status == 403) {
               this.message_login = this.$t('wrong_user_or_password')
               this.showDismissibleAlert = true
+            } else if (err.response && err.response.status == 404) {
+              this.message_login = this.$t('login_email_not_exists')
+              this.showDismissibleAlert = true  
             } else {
               this.message_login = this.$t('problem_to_login')
               this.showDismissibleAlert = true    

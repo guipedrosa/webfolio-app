@@ -23,7 +23,7 @@
     </b-navbar>
 
     <div class="container container-main">
-      <breadcrumbs v-if="this.$route.path !== '/'"></breadcrumbs>
+      <breadcrumbs v-if="this.$route.path !== '/' && this.$route.path !== '/login'"></breadcrumbs>
       <router-view></router-view>
     </div>
   

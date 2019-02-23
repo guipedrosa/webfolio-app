@@ -2,6 +2,7 @@
   "welcome_short_message": "Bem-vindo ao WebFolio",
   "welcome_long_message": "Aprenda, compartilhe e aprimore seus conhecimentos",
   "login_or_register_message": "Não tem uma conta? ",
+  "login_email_not_exists": "Email não cadastrado!",
   "menu_login": "Login",
   "menu_logout": "Sair",
   "wrong_user_or_password": "Email ou senha inválidos!",

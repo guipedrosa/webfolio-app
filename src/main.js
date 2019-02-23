@@ -26,9 +26,15 @@ const routes = [
   { path: '/', component: Home, name: 'Home', meta:{ breadcrumb: [ { name: 'Home' } ] } },
   { path: '/register', component: Register, name: 'Register', meta:{ breadcrumb: [ { name: 'Register' } ] } },
   
-  { path: '/quiz-dashboard', component: QuizDashboard, meta: { requiresAuth: true }, name: "quiz-dashboard", meta:{ breadcrumb: [ { name: 'Quiz Dashboard' } ] } },
-  { path: '/quiz/:id', component: Quiz, meta: { requiresAuth: true }, name: "quiz", 
+  { path: '/quiz-dashboard', component: QuizDashboard, name: "quiz-dashboard", 
     meta:{ 
+      requiresAuth: true,
+      breadcrumb: [ { name: 'Quiz Dashboard' } ] 
+    } 
+  },
+  { path: '/quiz/:id', component: Quiz, name: "quiz", 
+    meta:{ 
+      requiresAuth: true,
       breadcrumb: [ 
           { name: 'Quiz Dashboard', link: '/quiz-dashboard' }, 
           { name: 'Quiz' } 
@@ -48,7 +54,7 @@ const router = new VueRouter({
 // Check if user is password veryfied
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)) {
-      if (localStorage.getItem('tokensession') == null) {
+    if (localStorage.getItem('tokensession') == null) {
           next({
               path: '/login',
               params: { nextUrl: to.fullPath }
@@ -86,18 +92,18 @@ new Vue({
 }).$mount('#app')
 
 
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '431103770762225',
-    cookie     : true,  // enable cookies to allow the server to access the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.8' // use graph api version 2.8
-  });
-};
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+// window.fbAsyncInit = function() {
+//   FB.init({
+//     appId      : '431103770762225',
+//     cookie     : true,  // enable cookies to allow the server to access the session
+//     xfbml      : true,  // parse social plugins on this page
+//     version    : 'v2.8' // use graph api version 2.8
+//   });
+// };
+// (function(d, s, id) {
+//   var js, fjs = d.getElementsByTagName(s)[0];
+//   if (d.getElementById(id)) return;
+//   js = d.createElement(s); js.id = id;
+//   js.src = "//connect.facebook.net/en_US/sdk.js";
+//   fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'));

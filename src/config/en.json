@@ -2,6 +2,7 @@
   "welcome_short_message": "Welcome to WebFolio",
   "welcome_long_message": "Learn, share and upgrade your knowledge",
   "login_or_register_message": "Dont have an account? ",
+  "login_email_not_exists": "Email does not exists!",
   "menu_login": "Login",
   "menu_logout": "Logout",
   "wrong_user_or_password": "Wrong email or password!",

@@ -8,7 +8,7 @@
 
     <p style="padding-top:20px;">{{ quiz.case }}</p>
 
-    <b-card no-body v-if="answering">
+    <b-card no-body v-if="answering && !show_finish">
       <b-tabs pills card vertical end>
         <b-tab
           :title="'#' + (parseInt(index) + 1)"
@@ -37,7 +37,7 @@ export default {
     return {
       quiz: {},
       answering: false,
-      count_minute: 2,
+      count_minute: 1,
       count_seconds: 0,
       show_finish: false
     };
@@ -69,13 +69,13 @@ export default {
     countSeconds() {
       if(this.answering){
         
-        if (this.count_seconds == 0) {   
-          this.count_seconds = 60       
-          this.count_minute = this.count_minute - 1
+        if (this.count_seconds == 0) {             
+          this.count_seconds = 60          
+          this.count_minute = this.count_minute - 1     
         }
 
-        if (this.count_minute > 0) {
-          this.count_seconds = this.count_seconds - 1
+        if (this.count_minute >= 0) {
+          this.count_seconds = this.count_seconds - 1          
           setTimeout(this.countSeconds, 1000)
         } else {
           this.count_seconds = 0;  
@@ -89,18 +89,13 @@ export default {
       }
     },
     answerQuestion() {
+      const user = localStorage.getItem('user')
+
       axios
-      .post(settings.restApi() + "/quiz/answer/")
+      .post(settings.restApi() + "/quiz/answer/" + this.$route.params.id + "/" + user_id)
       .then(response => {
-        this.quiz = response.data.data;
 
-        if (localStorage.getItem('quiz_answer_minute') && localStorage.getItem('quiz_answer_second')) { // user return to quiz after stop time
-          this.answering = true
-          this.count_minute = localStorage.getItem('quiz_answer_minute')
-          this.count_seconds = localStorage.getItem('quiz_answer_second')
-
-          this.countSeconds();
-        }
+        
       
       })
       .catch(err => {
