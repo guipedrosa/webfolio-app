@@ -42,5 +42,6 @@
   "problem_login_fb": "Cannot Login with Facebook, please contact the system administrator",
   "problem_to_login": "Problems to Login, come back later!",
   "table_quiz_name": "Name",
-  "table_quiz_close_date": "Close Date"
+  "table_quiz_close_date": "Close Date",
+  "quiz_timeout_message": "Timeout! This Quiz will be available later to answer again."
 }

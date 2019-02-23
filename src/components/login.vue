@@ -76,7 +76,6 @@ export default {
 
         FB.api('/me?fields=id,name,email&access_token=' + response.authResponse.accessToken, dude => {
           
-          console.log(dude)
           // axios to check user exists
           axios
             .post(settings.restApi() + '/loginfb', 

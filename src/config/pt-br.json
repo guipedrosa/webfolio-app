@@ -47,5 +47,6 @@
   "quiz_time_to_answer": "Tempo para responder",
   "quiz_clinic_case": "Caso clínico",
   "table_quiz_name": "Nome",
-  "table_quiz_close_date": "Fechamento"
+  "table_quiz_close_date": "Fechamento",
+  "quiz_timeout_message": "O tempo acabou! Mais tarde este Quiz estará liberado para nova tentativa."
 }
