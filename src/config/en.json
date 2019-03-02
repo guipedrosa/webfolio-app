@@ -44,5 +44,7 @@
   "problem_to_login": "Problems to Login, come back later!",
   "table_quiz_name": "Name",
   "table_quiz_close_date": "Close Date",
-  "quiz_timeout_message": "Timeout! This Quiz will be available later to answer again."
+  "quiz_timeout_message": "Timeout! This Quiz will be available later to answer again.",
+  "question_already_answered": "You already answered this question!",
+  "quiz_finish_message": "Congratulations! You complete the Quiz, later you can see your results!"
 }

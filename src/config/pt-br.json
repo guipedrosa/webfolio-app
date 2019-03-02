@@ -49,5 +49,7 @@
   "quiz_clinic_case": "Caso clínico",
   "table_quiz_name": "Nome",
   "table_quiz_close_date": "Fechamento",
-  "quiz_timeout_message": "O tempo acabou! Mais tarde este Quiz estará liberado para nova tentativa."
+  "quiz_timeout_message": "O tempo acabou! Mais tarde este Quiz estará liberado para nova tentativa.",
+  "question_already_answered": "Você já respondeu a esta questão!",
+  "quiz_finish_message": "Parabéns! Você terminou de responder o Quiz. Mais tarde você poderá ver os resultados!"
 }

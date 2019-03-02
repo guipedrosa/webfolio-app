@@ -115,7 +115,7 @@ export default {
           )
           .then(response => {
             localStorage.setItem('tokensession', response.data.token)
-            localStorage.setItem('user', response.data.user)
+            localStorage.setItem('user', JSON.stringify(response.data.user))
             this.$router.push({ path: '/dashboard' })
           })
           .catch(err => {
