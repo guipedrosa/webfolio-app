@@ -86,8 +86,7 @@ export default {
               if (response.data.token === undefined) {
                 throw 'invalid token'
               }
-              localStorage.setItem('tokensession', response.data.token)
-              localStorage.setItem('user', JSON.stringify(response.data.user))
+              this.registerUserLogin(response.data.token, response.data.user)              
               this.$router.push({ path: '/dashboard' })
             })
             .catch(err => {
@@ -114,8 +113,7 @@ export default {
             { "Content-Type": "application/x-www-form-urlencoded" }
           )
           .then(response => {
-            localStorage.setItem('tokensession', response.data.token)
-            localStorage.setItem('user', JSON.stringify(response.data.user))
+            this.registerUserLogin(response.data.token, response.data.user)
             this.$router.push({ path: '/dashboard' })
           })
           .catch(err => {
@@ -132,6 +130,10 @@ export default {
             }
           })
   
+      },
+      registerUserLogin(token, user) {
+        localStorage.setItem('tokensession', token)
+        localStorage.setItem('user', JSON.stringify(user))
       }
     }
 }
