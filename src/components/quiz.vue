@@ -138,6 +138,7 @@ export default {
           });
     },
     finishQuiz() {
+      // to implement
       axios
         .post(settings.restApi() + "/quiz/finish/" + this.$route.params.id + "/" + user_id)
           .then(response => {
