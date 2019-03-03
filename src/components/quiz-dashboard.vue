@@ -30,7 +30,7 @@ export default {
     },    
     mounted() {
         axios
-            .get(settings.restApi() + '/quiz')
+            .get(settings.restApi() + '/quiz/')
             .then(response => {
                 
                 return this.items = response.data.data.map(function( elem, index, a ){    

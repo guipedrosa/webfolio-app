@@ -30,7 +30,7 @@
       </b-tabs>
     </b-card>
 
-    <p v-if="!answering">
+    <p v-if="!answering && !show_finish && !show_finish_time">
       <span>Deseja responder agora?</span>
       <br>
       <b-button type="button" variant="primary" @click="startAnswer">Sim</b-button>
@@ -58,10 +58,17 @@ export default {
     };
   },
   mounted() {
+    const user = JSON.parse(localStorage.getItem('user'))
+
     axios
-      .get(settings.restApi() + "/quiz/" + this.$route.params.id)
+      .get(settings.restApi() + "/quiz/" + this.$route.params.id + '/' + user._id)
       .then(response => {
-        this.quiz = response.data.data;
+        this.quiz = response.data.data;   
+        
+        // if answered, close Quiz
+        if (response.data.message == 'answered') {
+          this.show_finish = true
+        }
 
         if (localStorage.getItem('quiz_answer_minute') && localStorage.getItem('quiz_answer_second')) { // user return to quiz after stop time
           this.answering = true
