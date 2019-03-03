@@ -13,6 +13,7 @@
 <script>
 import axios from 'axios'
 import { settings } from '../config/settings.js'
+import * as moment from 'moment'
 
 export default {
     data () {
@@ -34,8 +35,11 @@ export default {
             .then(response => {
                 
                 return this.items = response.data.data.map(function( elem, index, a ){    
-
-                    return { _id: elem._id, name: elem.name, close: elem.close_date }
+                    let date_close = ''
+                    if (elem.close_date != undefined) {
+                        date_close = moment(elem.close_date).format("D/M/Y HH:mm:ss")
+                    }
+                    return { _id: elem._id, name: elem.name, close: date_close }
                 })
             })
             .catch(err => {         
