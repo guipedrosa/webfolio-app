@@ -2,14 +2,16 @@
   <div>
     
     <b-card :title="$t('welcome_short_message')"
-          img-src="./src/assets/img/open-image.png"
-          img-alt="Image"
-          img-top
+          img-src="./src/assets/img/bg2-new.jpg"
+          img-alt="Medicine"
+          overlay
           tag="article"
-          class="mb-2 card-title">
-      <p class="card-text">
-        {{ $t('welcome_long_message') }}
-      </p>
+          text-variant="white"
+          :sub-title="$t('welcome_long_message')"
+      >
+      <b-card-text>
+        {{ $t('about_long_message') }}
+      </b-card-text>
     </b-card>
 
     <Login v-if="!$parent.logged()"></Login>

@@ -155,9 +155,6 @@ export default {
   margin-top: 30px;
 }
 
-.card-text, .card-title {
-  text-align: center;
-}
 
 @media (min-width: 576px) {
   .login-card {
