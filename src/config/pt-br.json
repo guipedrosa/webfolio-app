@@ -51,5 +51,8 @@
   "table_quiz_close_date": "Fechamento",
   "quiz_timeout_message": "O tempo acabou! Mais tarde este Quiz estará liberado para nova tentativa.",
   "question_already_answered": "Você já respondeu a esta questão!",
-  "quiz_finish_message": "Parabéns! Você terminou de responder o Quiz. Mais tarde você poderá ver os resultados!"
+  "quiz_finish_message": "Parabéns! Você terminou de responder o Quiz. Mais tarde você poderá ver os resultados!",
+  "closed_quiz_message": "Desculpe, o este Quiz está fechado.",
+  "on_practice_mode": "Modo Treino",
+  "quiz_in_practice_mode": "Respondendo no Modo Treino"
 }

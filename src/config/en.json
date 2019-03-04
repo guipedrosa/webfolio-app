@@ -46,5 +46,8 @@
   "table_quiz_close_date": "Close Date",
   "quiz_timeout_message": "Timeout! This Quiz will be available later to answer again.",
   "question_already_answered": "You already answered this question!",
-  "quiz_finish_message": "Congratulations! You complete the Quiz, later you can see your results!"
+  "quiz_finish_message": "Congratulations! You complete the Quiz, later you can see your results!",
+  "closed_quiz_message": "Sorry, this Quiz is closed.",
+  "on_practice_mode": "Practice Mode",
+  "quiz_in_practice_mode": "Answering in Practice Mode"
 }

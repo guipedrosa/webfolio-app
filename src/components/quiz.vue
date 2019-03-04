@@ -3,6 +3,8 @@
     <h3>Quiz - {{ quiz.name }}</h3>
      <b-alert variant="danger" :show="show_finish_time">{{ $t('quiz_timeout_message') }}</b-alert>
      <b-alert variant="success" :show="show_finish">{{ $t('quiz_finish_message') }}</b-alert>
+     <b-alert :show="show_practice_mode">{{ $t('quiz_in_practice_mode') }}</b-alert>
+
 
     <b-list-group v-if="!show_finish && !show_finish_time">
       <b-list-group-item>{{ $t('quiz_time_to_answer') }}: {{ count_minute }}m {{ count_seconds }}s</b-list-group-item>
@@ -19,7 +21,7 @@
           :key="sentence._id"              
         >{{ sentence.question }}
         
-        <p style="margin-top:30px;" v-if="answered.indexOf(index) === -1">
+        <p style="margin-top:30px;" v-if="answered.indexOf(index) === -1 && !show_finish && !show_finish_time">
           <b-button type="button" variant="primary" @click="answerQuestion(index, true)">Verdadeiro</b-button>
           <b-button type="button" @click="answerQuestion(index, false)">Falso</b-button>
         </p>
@@ -54,7 +56,8 @@ export default {
       show_finish: false,
       answer_mode: 'original',
       answered: [],
-      tabIndex: 0
+      tabIndex: 0,
+      show_practice_mode: false
     };
   },
   mounted() {
@@ -63,10 +66,15 @@ export default {
     axios
       .get(settings.restApi() + "/quiz/" + this.$route.params.id + '/' + user._id)
       .then(response => {
-        this.quiz = response.data.data;   
+        this.quiz = response.data.data;  
+        
+        if (this.quiz.practice_mode != undefined && this.quiz.practice_mode === true) {
+          this.answer_mode = 'practice'
+          this.show_practice_mode = true
+        }
         
         // if answered, close Quiz
-        if (response.data.message == 'answered') {
+        if (response.data.message == 'answered' && this.answer_mode == 'original') {
           this.show_finish = true
         }
 
@@ -123,7 +131,6 @@ export default {
             }
           })
           .then(response => {
-              console.log(response)   
               this.answered.push(tab_index)
               this.tabIndex++
               
@@ -132,17 +139,6 @@ export default {
               }
               
               
-          })
-          .catch(err => {
-            
-          });
-    },
-    finishQuiz() {
-      // to implement
-      axios
-        .post(settings.restApi() + "/quiz/finish/" + this.$route.params.id + "/" + user_id)
-          .then(response => {
-
           })
           .catch(err => {
             
