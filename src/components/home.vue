@@ -8,12 +8,9 @@
           tag="article"
           text-variant="white"
           :sub-title="$t('welcome_long_message')"
-      >
-      <b-card-text>
-        {{ $t('about_long_message') }}
-      </b-card-text>
+    >
     </b-card>
-
+    
     <Login v-if="!$parent.logged()"></Login>
   
   </div>
