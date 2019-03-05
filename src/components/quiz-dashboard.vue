@@ -29,7 +29,7 @@ export default {
             return  [
                 { key: 'name', label: this.$t('table_quiz_name'), formatter: 'linkToQuiz' }, 
                 { key: 'close_date', label: this.$t('table_quiz_close_date') },
-                { key: 'closed', label: 'Fechado' }
+                { key: 'closed', label: this.$t('table_quiz_closed') }
             ]
         }
     },    
