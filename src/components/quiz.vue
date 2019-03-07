@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="show_all">
     <h3>Quiz - {{ quiz.name }}</h3>
      <b-alert variant="danger" :show="show_finish_time">{{ $t('quiz_timeout_message') }}</b-alert>
      <b-alert variant="success" :show="show_finish">{{ $t('quiz_finish_message') }}</b-alert>
@@ -48,6 +48,7 @@ import { settings } from "../config/settings.js";
 export default {
   data() {
     return {
+      show_all: false,
       quiz: {},
       answering: false,
       count_minute: 2,
@@ -60,36 +61,36 @@ export default {
       show_practice_mode: false
     };
   },
-  mounted() {
+  created() {
     const user = JSON.parse(localStorage.getItem('user'))
 
     axios
-      .get(settings.restApi() + "/quiz/" + this.$route.params.id + '/' + user._id)
-      .then(response => {
-        this.quiz = response.data.data;  
-        
-        if (this.quiz.practice_mode != undefined && this.quiz.practice_mode === true) {
-          this.answer_mode = 'practice'
-          this.show_practice_mode = true
-        }
-        
-        // if answered, close Quiz
-        if (response.data.message == 'answered' && this.answer_mode == 'original') {
-          this.show_finish = true
-        }
+        .get(settings.restApi() + "/quiz/" + this.$route.params.id + '/' + user._id)
+        .then(response => {
+          this.quiz = response.data.data;  
+          
+          if (this.quiz.practice_mode != undefined && this.quiz.practice_mode === true) {
+            this.answer_mode = 'practice'
+            this.show_practice_mode = true
+          }
+          
+          // if answered, close Quiz
+          if (response.data.message == 'answered' && this.answer_mode == 'original') {
+            this.show_finish = true
+          }
 
-        if (localStorage.getItem('quiz_answer_minute') && localStorage.getItem('quiz_answer_second')) { // user return to quiz after stop time
-          this.answering = true
-          this.count_minute = localStorage.getItem('quiz_answer_minute')
-          this.count_seconds = localStorage.getItem('quiz_answer_second')
+          if (localStorage.getItem('quiz_answer_minute') && localStorage.getItem('quiz_answer_second')) { // user return to quiz after stop time
+            this.answering = true
+            this.count_minute = localStorage.getItem('quiz_answer_minute')
+            this.count_seconds = localStorage.getItem('quiz_answer_second')
 
-          this.countSeconds();
-        }
-      
-      })
-      .catch(err => {
-        // another types of error while trying to register user
-      });
+            this.countSeconds();
+          }
+          this.show_all = true
+        })
+        .catch(err => {
+          // another types of error while trying to register user
+        });
   },
   methods: {
     startAnswer() {
