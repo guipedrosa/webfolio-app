@@ -6,12 +6,7 @@
      <b-alert :show="show_practice_mode && !show_correct_answers">{{ $t('quiz_in_practice_mode') }}</b-alert>
 
      <!-- Quiz correction alert -->
-     <b-alert variant="warning" :show="show_reviewed">{{ $t('quiz_show_reviewed') }}</b-alert>
-     <p v-if="show_reviewed && !show_correct_answers">
-      <span>{{ $t('quiz_show_reviewed_answers') }}</span>
-      <br>
-      <b-button type="button" variant="primary" @click="startToSeeCorrection">Sim</b-button>
-    </p>
+     <b-alert variant="warning" :show="show_correct_answers">{{ $t('quiz_show_reviewed') }}</b-alert>
 
 
     <b-list-group v-if="!show_finish && !show_finish_time && !show_correct_answers">
@@ -38,7 +33,7 @@
           Comentário: {{ sentence.commented_answer }}
         </p>
         
-        <p style="margin-top:30px;" v-if="answered.indexOf(index) === -1 && !show_finish && !show_finish_time && !show_reviewed">
+        <p style="margin-top:30px;" v-if="answered.indexOf(index) === -1 && !show_finish && !show_finish_time && !show_correct_answers">
           <b-button type="button" variant="primary" @click="answerQuestion(index, true)">Verdadeiro</b-button>
           <b-button type="button" @click="answerQuestion(index, false)">Falso</b-button>
         </p>
@@ -54,6 +49,12 @@
       <br>
       <b-button type="button" variant="primary" @click="startAnswer">Sim</b-button>
       <b-button type="button">Não</b-button>
+    </p>
+
+    <p v-if="show_reviewed && !show_correct_answers && !show_correct_answers">
+      <span>{{ $t('quiz_show_reviewed_answers') }}</span>
+      <br>
+      <b-button type="button" variant="primary" @click="startToSeeCorrection">Sim</b-button>
     </p>
   </div>
 </template>
@@ -107,7 +108,10 @@ export default {
             this.count_minute = localStorage.getItem('quiz_answer_minute')
             this.count_seconds = localStorage.getItem('quiz_answer_second')
 
-            this.countSeconds();
+            if (!this.show_correct_answers) { // if is not showing corrected quiz answers
+              this.countSeconds();
+            }
+ 
           }
           this.show_all = true
         })
@@ -122,7 +126,11 @@ export default {
     },
     startToSeeCorrection() {
       this.show_correct_answers = true
-      this.$scrollTo('#initial-question', 500)      
+      this.$scrollTo('#initial-question', 500)    
+      
+      console.log(this.tabIndex)
+
+
     },
     countSeconds() {
       if(this.answering){

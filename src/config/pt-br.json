@@ -55,7 +55,7 @@
   "quiz_finish_message": "Parabéns! Você terminou de responder o Quiz. Mais tarde você poderá ver os resultados!",
   "closed_quiz_message": "Desculpe, o este Quiz está fechado.",
   "on_practice_mode": "Modo Treino",
-  "quiz_in_practice_mode": "Respondendo no Modo Treino",
+  "quiz_in_practice_mode": "Quiz está no Modo Treino",
   "quiz_reviewed": "Corrigido",
   "quiz_show_reviewed": "Mostrando as respostas corrigidas e comentadas",
   "quiz_show_reviewed_answers": "Deseja ver a correção do Quiz?"

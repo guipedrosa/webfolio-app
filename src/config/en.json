@@ -50,7 +50,7 @@
   "quiz_finish_message": "Congratulations! You complete the Quiz, later you can see your results!",
   "closed_quiz_message": "Sorry, this Quiz is closed.",
   "on_practice_mode": "Practice Mode",
-  "quiz_in_practice_mode": "Answering in Practice Mode",
+  "quiz_in_practice_mode": "Quiz in Practice Mode",
   "quiz_reviewed": "Reviewed",
   "quiz_show_reviewed": "Showing correct and commented answers",
   "quiz_show_reviewed_answers": "Do want to see Quiz correction?"
