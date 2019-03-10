@@ -8,11 +8,13 @@ import VueRouter from 'vue-router'
 import i18n from './i18n'
 import VueTheMask from 'vue-the-mask'
 import FBSignInButton from 'vue-facebook-signin-button'
+import VueScrollTo from 'vue-scrollto'
 
 Vue.use(VueTheMask)
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 Vue.use(FBSignInButton) 
+Vue.use(VueScrollTo)
 
 import Home from './components/home.vue'
 import Register from './components/register.vue'

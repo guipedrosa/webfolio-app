@@ -35,7 +35,8 @@ export default {
     },    
     mounted() {
         const practice_str = this.$t('on_practice_mode')
-
+        const reviewed_str = this.$t('quiz_reviewed')
+            
         axios
             .get(settings.restApi() + '/quiz/')
             .then(response => {
@@ -57,7 +58,11 @@ export default {
                     let quiz_name = elem.name                     
                     quiz_name = (practice_mode ? quiz_name + ' (' + practice_str + ')' : quiz_name)
 
-                    return { _id: elem._id, name: quiz_name, close_date: date_close, closed: closed_str, practice_mode: practice_mode }
+                    if (elem.reviewed) {
+                        closed_str += " <br /> (" + reviewed_str + ")"
+                    }
+
+                    return { _id: elem._id, name: quiz_name, close_date: date_close, closed: closed_str, practice_mode: practice_mode, reviewed: elem.reviewed }
                 })
             })
             .catch(err => {         
@@ -75,7 +80,7 @@ export default {
                 return true
             }
 
-            if (item.closed === 'Sim') {
+            if (item.closed === 'Sim' && !item.reviewed) {
                 return false
             }
 

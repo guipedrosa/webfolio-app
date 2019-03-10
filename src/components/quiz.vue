@@ -3,16 +3,24 @@
     <h3>Quiz - {{ quiz.name }}</h3>
      <b-alert variant="danger" :show="show_finish_time">{{ $t('quiz_timeout_message') }}</b-alert>
      <b-alert variant="success" :show="show_finish">{{ $t('quiz_finish_message') }}</b-alert>
-     <b-alert :show="show_practice_mode">{{ $t('quiz_in_practice_mode') }}</b-alert>
+     <b-alert :show="show_practice_mode && !show_correct_answers">{{ $t('quiz_in_practice_mode') }}</b-alert>
+
+     <!-- Quiz correction alert -->
+     <b-alert variant="warning" :show="show_reviewed">{{ $t('quiz_show_reviewed') }}</b-alert>
+     <p v-if="show_reviewed && !show_correct_answers">
+      <span>{{ $t('quiz_show_reviewed_answers') }}</span>
+      <br>
+      <b-button type="button" variant="primary" @click="startToSeeCorrection">Sim</b-button>
+    </p>
 
 
-    <b-list-group v-if="!show_finish && !show_finish_time">
+    <b-list-group v-if="!show_finish && !show_finish_time && !show_correct_answers">
       <b-list-group-item>{{ $t('quiz_time_to_answer') }}: {{ count_minute }}m {{ count_seconds }}s</b-list-group-item>
     </b-list-group>
 
     <p style="padding-top:20px;">{{ quiz.case }}</p>
 
-    <b-card no-body v-if="answering && !show_finish">
+    <b-card no-body v-if="(answering && !show_finish) || show_correct_answers">
       <b-tabs pills card vertical end v-model="tabIndex">
         <b-tab
           :title="'#' + (parseInt(index) + 1)"
@@ -20,8 +28,17 @@
           v-for="(sentence, index) in quiz.sentences"
           :key="sentence._id"              
         >{{ sentence.question }}
+
+        <p v-if="show_correct_answers">
+          <br />
+          <br />
+          -------
+          <br />
+          Resposta correta: <b-badge :variant='sentence.correct_answer ? "success" : "secondary"'>{{ sentence.correct_answer ? "Verdadeiro" : "Falso" }} </b-badge><br />
+          Comentário: {{ sentence.commented_answer }}
+        </p>
         
-        <p style="margin-top:30px;" v-if="answered.indexOf(index) === -1 && !show_finish && !show_finish_time">
+        <p style="margin-top:30px;" v-if="answered.indexOf(index) === -1 && !show_finish && !show_finish_time && !show_reviewed">
           <b-button type="button" variant="primary" @click="answerQuestion(index, true)">Verdadeiro</b-button>
           <b-button type="button" @click="answerQuestion(index, false)">Falso</b-button>
         </p>
@@ -32,7 +49,7 @@
       </b-tabs>
     </b-card>
 
-    <p v-if="!answering && !show_finish && !show_finish_time">
+    <p v-if="!answering && !show_finish && !show_finish_time && !show_correct_answers" id="initial-question">
       <span>Deseja responder agora?</span>
       <br>
       <b-button type="button" variant="primary" @click="startAnswer">Sim</b-button>
@@ -58,7 +75,9 @@ export default {
       answer_mode: 'original',
       answered: [],
       tabIndex: 0,
-      show_practice_mode: false
+      show_practice_mode: false,
+      show_reviewed: false,
+      show_correct_answers: false
     };
   },
   created() {
@@ -73,6 +92,10 @@ export default {
             this.answer_mode = 'practice'
             this.show_practice_mode = true
           }
+
+          if (this.quiz.reviewed != undefined && this.quiz.reviewed === true) {
+            this.show_reviewed = true
+          } 
           
           // if answered, close Quiz
           if (response.data.message == 'answered' && this.answer_mode == 'original') {
@@ -95,7 +118,11 @@ export default {
   methods: {
     startAnswer() {
       this.answering = true
-      this.countSeconds();
+      this.countSeconds()
+    },
+    startToSeeCorrection() {
+      this.show_correct_answers = true
+      this.$scrollTo('#initial-question', 500)      
     },
     countSeconds() {
       if(this.answering){
