@@ -27,6 +27,7 @@
         <p v-if="show_correct_answers">
           <br />
           <br />
+          Você respondeu: <b-badge :variant='getOriginalAnswer ? "success" : "secondary"'>{{ getOriginalAnswer ? "Verdadeiro" : "Falso" }} </b-badge><br />
           -------
           <br />
           Resposta correta: <b-badge :variant='sentence.correct_answer ? "success" : "secondary"'>{{ sentence.correct_answer ? "Verdadeiro" : "Falso" }} </b-badge><br />
@@ -78,8 +79,21 @@ export default {
       tabIndex: 0,
       show_practice_mode: false,
       show_reviewed: false,
-      show_correct_answers: false
+      show_correct_answers: false,
+      answers: []
     };
+  },
+  computed: {
+    getOriginalAnswer() {
+      if (this.answers[this.tabIndex] != undefined) {      
+        if (this.answers[this.tabIndex].answer_mode == 'original') {
+          return this.answers[this.tabIndex].question_answer
+        } else {
+          return 'nada'
+        }
+
+      }
+    }
   },
   created() {
     const user = JSON.parse(localStorage.getItem('user'))
@@ -128,6 +142,19 @@ export default {
       this.show_correct_answers = true
       this.$scrollTo('#initial-question', 500)    
       
+      const user = JSON.parse(localStorage.getItem('user'))
+
+       axios
+        .get(settings.restApi() + "/quiz/answer/" + this.$route.params.id + "/" + user._id)
+          .then(response => {
+              //console.log(response)
+              this.answers = response.data.data.answers;              
+              
+          })
+          .catch(err => {
+            
+          });
+
       console.log(this.tabIndex)
 
 
@@ -179,7 +206,7 @@ export default {
           .catch(err => {
             
           });
-    }    
+    },    
   },
   beforeRouteLeave(to, from, next) {
     // stop time when user leaves the quiz
