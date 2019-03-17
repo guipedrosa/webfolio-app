@@ -1,0 +1,11 @@
+{
+    "name": "Webfolio",
+    "short_name": "Webfolio",
+    "icons": [
+        {
+            "src": "https://cdn0.iconfinder.com/data/icons/inficons-multicons-set-1/256/medic-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
