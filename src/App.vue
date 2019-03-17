@@ -9,6 +9,7 @@
           <b-nav-item to="/register" v-if="!logged()">{{ $t('menu_register') }}</b-nav-item>
           <b-nav-item to="/quiz-dashboard">{{ $t('menu_quiz') }}</b-nav-item>
           <b-nav-item to="/about">{{ $t('menu_about') }}</b-nav-item>
+          <b-nav-item to="/admin" v-if="isAdmin()">Admin</b-nav-item>
           <b-nav-item @click="logout" v-if="logged()">{{ $t('menu_logout') }}</b-nav-item>
         </b-navbar-nav>
 
@@ -56,7 +57,13 @@ export default {
       localStorage.removeItem('tokensession')
       localStorage.removeItem('user')
       this.$router.push({ path: '/login' })
-    }
+    },
+    isAdmin() {
+      if (localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).profile == "admin"){
+        return true
+      }
+      return false
+    },
   }
 
 }

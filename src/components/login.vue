@@ -86,7 +86,7 @@ export default {
               if (response.data.token === undefined) {
                 throw 'invalid token'
               }
-              this.registerUserLogin(response.data.token, response.data.user)              
+              this.registerUserLogin(response.data.token, response.data.user)             
               this.$router.push({ path: '/dashboard' })
             })
             .catch(err => {

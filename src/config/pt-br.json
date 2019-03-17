@@ -58,5 +58,6 @@
   "quiz_in_practice_mode": "Quiz está no Modo Treino",
   "quiz_reviewed": "Corrigido",
   "quiz_show_reviewed": "Mostrando as respostas corrigidas e comentadas",
-  "quiz_show_reviewed_answers": "Deseja ver a correção do Quiz?"
+  "quiz_show_reviewed_answers": "Deseja ver a correção do Quiz?",
+  "manage_quizzes": "Gerenciar Quiz"
 }
