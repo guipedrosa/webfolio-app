@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h3>Quiz Dashboard</h3>
+        <h3> {{ quizTableTitle }} </h3>
         <b-alert :show="show_closed_quiz" dismissible>{{ $t('closed_quiz_message') }}</b-alert>
 
         <b-table striped hover :items="items" :fields="fields">
             <template slot="name" slot-scope="data">
-               <router-link :to="{ path: '/quiz/' + data.item._id}" v-if="showLink(data.item)" replace>{{ data.item.name }}</router-link>
+               <router-link :to="resolveLink(data.item)" v-if="showLink(data.item)" replace>{{ data.item.name }}</router-link>
                <span v-if="!showLink(data.item)" style="color:grey;">{{ data.item.name }}</span>
             </template>    
         </b-table>    
@@ -24,10 +24,11 @@ export default {
             show_closed_quiz: false
         }
     },
+    props: ['quizTableTitle', 'adminEdit'],
     computed: {
         fields() {
             return  [
-                { key: 'name', label: this.$t('table_quiz_name'), formatter: 'linkToQuiz' }, 
+                { key: 'name', label: this.$t('table_quiz_name') }, 
                 { key: 'close_date', label: this.$t('table_quiz_close_date') },
                 { key: 'closed', label: this.$t('table_quiz_closed') }
             ]
@@ -70,9 +71,6 @@ export default {
             })
     },
     methods: {
-        linkToQuiz(value) {
-            return `${value}`
-        },
         showLink(item) {
 
             // if practice mode
@@ -84,8 +82,15 @@ export default {
                 return false
             }
 
-            return { path: '/quiz/' + item._id}
+            return true
         },
+        resolveLink(item) {
+            if (this.$props.adminEdit == "1") {
+                return { path: '/admin/quiz/' + item._id}
+            }
+
+            return { path: '/quiz/' + item._id}
+        }
     }
     
 }

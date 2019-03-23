@@ -24,6 +24,7 @@ import Login from './components/login.vue'
 import Dashboard from './components/dashboard.vue'
 import AdminDashboard from './components/admin-dashboard.vue'
 import AdminQuiz from './components/admin-quiz.vue'
+import EditQuiz from './components/edit-quiz.vue'
 import About from './components/about.vue'
 
 const routes = [
@@ -55,7 +56,15 @@ const routes = [
                 { name: 'Admin Quiz' } 
             ] }
   },  
+  { path: '/edit-quiz', component: EditQuiz, 
+    meta: { requiresAuth: true, profile: "admin", 
+          breadcrumb: [ 
+              { name: "Admin Dashboard", link: '/admin'},
+              { name: 'Admin Quiz', link: '/admin-quiz' },
+              { name: 'Edit Quiz' } 
 
+          ] }
+  }, 
   { path: '/about', component: About, name: "About", meta:{ breadcrumb: [ { name: 'About' } ] } },
 
 ]

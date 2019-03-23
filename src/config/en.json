@@ -54,5 +54,10 @@
   "quiz_reviewed": "Reviewed",
   "quiz_show_reviewed": "Showing correct and commented answers",
   "quiz_show_reviewed_answers": "Do want to see Quiz correction?",
-  "manage_quizzes": "Manage Quizzes"
+  "manage_quizzes": "Manage Quizzes",
+  "admin_form_quiz_name": "Quiz name:",
+  "admin_form_add_question": "Add question:",
+  "admin_form_add_question_button": "Add",
+  "admin_form_quiz_case": "Case description:",
+  "admin_form_save_quiz": "Save Quiz"
 }

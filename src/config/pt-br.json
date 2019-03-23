@@ -59,5 +59,10 @@
   "quiz_reviewed": "Corrigido",
   "quiz_show_reviewed": "Mostrando as respostas corrigidas e comentadas",
   "quiz_show_reviewed_answers": "Deseja ver a correção do Quiz?",
-  "manage_quizzes": "Gerenciar Quiz"
+  "manage_quizzes": "Gerenciar Quiz",
+  "admin_form_quiz_name": "Nome do Quiz:",
+  "admin_form_add_question": "Adicionar questão:",
+  "admin_form_add_question_button": "Adicionar",
+  "admin_form_quiz_case": "Descrição do caso:",
+  "admin_form_save_quiz": "Salvar Quiz"
 }
