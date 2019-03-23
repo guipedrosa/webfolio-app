@@ -52,7 +52,7 @@
     
     <br>
     <b-form-group>
-        <b-button variant="outline-success">{{ $t('admin_form_save_quiz') }}</b-button>
+        <b-button variant="outline-success" @click="saveQuiz">{{ $t('admin_form_save_quiz') }}</b-button>
     </b-form-group>
 
 </div>
@@ -77,8 +77,32 @@ export default {
     methods: {
         addItem() {            
             this.items.push({ sentence: this.question, correct_answer: this.correct_answer, comment: this.comment, action: 'X' })
+        },
+        saveQuiz() {
+
+            axios
+                .post(settings.restApi() + "/quiz/",
+                {
+                    name:name,
+                    open_date: open_date,
+                    close_date: close_date,
+                    time_to_answer: time_to_answer,
+                    study_sugestion: study_sugestion,
+                    study_sugestion_date: study_sugestion_date,
+                    case: quiz_case,
+                    sentences: items
+                })
+                .then(response => {
+                    
+                    
+                })
+                .catch(err => {
+                    
+                });
+
         }
     }
+
 
 }
 
