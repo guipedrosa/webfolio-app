@@ -5,6 +5,14 @@
         <b-form-input id="quiz-name" v-model="quiz_name" />
     </b-form-group>
 
+    <b-form-group label-cols="4" label-cols-lg="2" :label="$t('admin_form_quiz_open_date')" label-for="quiz-open-date">
+        <b-form-input id="quiz-open-date" v-model="quiz_open_date" v-mask="'##/##/#### ##:##:##'" />
+    </b-form-group>
+
+    <b-form-group label-cols="4" label-cols-lg="2" :label="$t('admin_form_quiz_close_date')" label-for="quiz-close-date">
+        <b-form-input id="quiz-close-date" v-model="quiz_close_date" v-mask="'##/##/#### ##:##:##'" />
+    </b-form-group>
+
     <b-form-group label-cols="4" label-cols-lg="2" :label="$t('admin_form_quiz_case')" label-for="quiz-case">
         <b-form-textarea
             id="textarea"
@@ -61,43 +69,47 @@
 
 
 <script>
+import axios from 'axios'
+import { settings } from '../config/settings.js'
+import * as moment from 'moment'
 
 export default {
     data() {
         return {
             quiz_name: "",
             quiz_case: "",
+            quiz_open_date: "",
+            quiz_close_date: "",
             items: [],
             question: "",
             correct_answer: "",
             comment: "",
+            study_sugestion: "",
+            study_sugestion_date: "",
             options: [{value: true, "text": "Verdadeiro"}, {value: false, "text": "Falso"}]
         }
     },
     methods: {
         addItem() {            
-            this.items.push({ sentence: this.question, correct_answer: this.correct_answer, comment: this.comment, action: 'X' })
+            this.items.push({ question: this.question, correct_answer: this.correct_answer, commented_answer: this.comment, action: 'X' })
         },
         saveQuiz() {
-
+            
             axios
                 .post(settings.restApi() + "/quiz/",
                 {
-                    name:name,
-                    open_date: open_date,
-                    close_date: close_date,
-                    time_to_answer: time_to_answer,
-                    study_sugestion: study_sugestion,
-                    study_sugestion_date: study_sugestion_date,
-                    case: quiz_case,
-                    sentences: items
+                    name: this.quiz_name,
+                    open_date: moment(this.quiz_open_date).format('DD/MM/YYYY HH:mm:ss'),
+                    close_date: moment(this.quiz_close_date).format('DD/MM/YYYY HH:mm:ss'),
+                    case: this.quiz_case,
+                    sentences: this.items
                 })
                 .then(response => {
-                    
+                    console.log(response)
                     
                 })
                 .catch(err => {
-                    
+                    console.log('error')                    
                 });
 
         }

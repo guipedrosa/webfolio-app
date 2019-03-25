@@ -7,6 +7,10 @@
             <template slot="name" slot-scope="data">
                <router-link :to="resolveLink(data.item)" v-if="showLink(data.item)" replace>{{ data.item.name }}</router-link>
                <span v-if="!showLink(data.item)" style="color:grey;">{{ data.item.name }}</span>
+            </template>
+            <template slot="closed" slot-scope="data">
+               <button @click="deleteQuiz">Delete</button>
+                {{ data.item.closed }}
             </template>    
         </b-table>    
     </div>
@@ -60,7 +64,7 @@ export default {
                     quiz_name = (practice_mode ? quiz_name + ' (' + practice_str + ')' : quiz_name)
 
                     if (elem.reviewed) {
-                        closed_str += " <br /> (" + reviewed_str + ")"
+                        closed_str += " (" + reviewed_str + ")"
                     }
 
                     return { _id: elem._id, name: quiz_name, close_date: date_close, closed: closed_str, practice_mode: practice_mode, reviewed: elem.reviewed }
@@ -90,6 +94,9 @@ export default {
             }
 
             return { path: '/quiz/' + item._id}
+        },
+        deleteQuiz() {
+            console.log('delete')
         }
     }
     

@@ -64,5 +64,7 @@
   "admin_form_add_question": "Adicionar questão:",
   "admin_form_add_question_button": "Adicionar",
   "admin_form_quiz_case": "Descrição do caso:",
-  "admin_form_save_quiz": "Salvar Quiz"
+  "admin_form_save_quiz": "Salvar Quiz",
+  "admin_form_quiz_open_date": "Data de abertura:",
+  "admin_form_quiz_close_date": "Data de fechamento:"
 }
