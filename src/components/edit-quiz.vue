@@ -99,8 +99,8 @@ export default {
                 .post(settings.restApi() + "/quiz/",
                 {
                     name: this.quiz_name,
-                    open_date: moment(this.quiz_open_date).format('DD/MM/YYYY HH:mm:ss'),
-                    close_date: moment(this.quiz_close_date).format('DD/MM/YYYY HH:mm:ss'),
+                    open_date: moment(this.quiz_open_date, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'),
+                    close_date: moment(this.quiz_close_date, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'),
                     case: this.quiz_case,
                     sentences: this.items
                 })
